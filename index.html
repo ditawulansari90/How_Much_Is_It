@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Interaktif - How Much Is It?</title>
+    <!-- Tailwind CSS untuk Desain Responsif -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-slate-50 font-sans text-slate-800">
+
+    <div class="max-w-3xl mx-auto min-h-screen p-4 sm:p-6 flex flex-col justify-center">
+
+        <!-- ================= BAGIAN 1: MENU AWAL (LOGIN SISWA) ================= -->
+        <div id="section-login" class="bg-white rounded-2xl shadow-xl p-6 sm:p-8 border border-slate-100">
+            <div class="text-center mb-6">
+                <span class="bg-indigo-100 text-indigo-700 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">E-Learning SD</span>
+                <h1 class="text-2xl sm:text-3xl font-bold text-slate-900 mt-2">English Interactive Learning</h1>
+                <p class="text-slate-500 text-sm mt-1">Silakan masukkan identitas Anda sebelum memulai pembelajaran.</p>
+            </div>
+
+            <form id="form-login" onsubmit="mulaiBelajar(event)" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-1"><i class="fa-solid fa-user text-indigo-500 mr-2"></i>Nama Siswa</label>
+                    <input type="text" id="nama-siswa" required placeholder="Contoh: Budi Santoso" class="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-1"><i class="fa-solid fa-id-card text-indigo-500 mr-2"></i>No. Absen</label>
+                    <input type="number" id="no-absen" required placeholder="Contoh: 12" class="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-1"><i class="fa-solid fa-book text-indigo-500 mr-2"></i>Mata Pelajaran</label>
+                    <input type="text" id="mapel" value="Bahasa Inggris" readonly class="w-full px-4 py-2.5 rounded-lg border border-slate-200 bg-slate-100 text-slate-600 cursor-not-allowed">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-1"><i class="fa-solid fa-file-lines text-indigo-500 mr-2"></i>Nama Tugas</label>
+                    <input type="text" id="nama-tugas" value="How Much Is It" readonly class="w-full px-4 py-2.5 rounded-lg border border-slate-200 bg-slate-100 text-slate-600 cursor-not-allowed">
+                </div>
+                <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded-xl transition duration-200 shadow-md flex items-center justify-center space-x-2">
+                    <span>Mulai Belajar</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </form>
+        </div>
+
+        <!-- ================= BAGIAN 2: HALAMAN UTAMA PEMBELAJARAN ================= -->
+        <div id="section-belajar" class="hidden space-y-6">
+            
+            <!-- Header Info Siswa yang Login -->
+            <div class="bg-indigo-600 text-white p-4 rounded-xl shadow flex justify-between items-center">
+                <div>
+                    <p class="text-xs text-indigo-200 uppercase tracking-wider">Siswa Aktif</p>
+                    <h3 id="display-nama" class="font-bold text-lg"></h3>
+                </div>
+                <div class="text-right">
+                    <span id="display-absen" class="bg-indigo-500 text-indigo-100 text-xs px-3 py-1 rounded-full font-medium"></span>
+                </div>
+            </div>
+
+            <!-- Video Pembelajaran MP4 Lokal -->
+            <div class="bg-white rounded-2xl shadow-lg p-5 border border-slate-100">
+                <h2 class="text-lg font-bold text-slate-900 mb-3 flex items-center">
+                    <i class="fa-solid fa-circle-play text-indigo-600 mr-2 text-xl"></i> Video Pembelajaran
+                </h2>
+                <div class="relative w-full aspect-video rounded-lg overflow-hidden bg-slate-900 shadow-inner">
+                    <video class="w-full h-full object-contain" controls>
+                        <source src="How Much Is It.mp4" type="video/mp4">
+                        Browser Anda tidak mendukung pemutaran video.
+                    </video>
+                </div>
+            </div>
+
+            <!-- Materi Pembelajaran -->
+            <div class="bg-white rounded-2xl shadow-lg p-5 sm:p-6 border border-slate-100">
+                <h2 class="text-lg font-bold text-slate-900 mb-4 flex items-center">
+                    <i class="fa-solid fa-book-open text-indigo-600 mr-2"></i> Materi: How Much Is It? (Canteen A & B)
+                </h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+                    <div class="bg-emerald-50 border border-emerald-200 p-4 rounded-xl">
+                        <h3 class="font-bold text-emerald-800 text-base mb-2"><i class="fa-solid fa-store mr-1"></i> Canteen A</h3>
+                        <ul class="space-y-1 text-emerald-900">
+                            <li>• Shumai: Rp8,000</li>
+                            <li>• Noodles: Rp5,000</li>
+                            <li>• Bread: Rp3,500</li>
+                            <li>• Ice tea: Rp2,500</li>
+                            <li>• Bakso: Rp8,000</li>
+                        </ul>
+                    </div>
+                    <div class="bg-amber-50 border border-amber-200 p-4 rounded-xl">
+                        <h3 class="font-bold text-amber-800 text-base mb-2"><i class="fa-solid fa-store mr-1"></i> Canteen B</h3>
+                        <ul class="space-y-1 text-amber-900">
+                            <li>• Shumai: Rp6,000</li>
+                            <li>• Noodles: Rp3,000</li>
+                            <li>• Bread: Rp2,500</li>
+                            <li>• Ice tea: Rp1,500</li>
+                            <li>• Bakso: Rp5,000</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Latihan Soal -->
+            <div class="bg-white rounded-2xl shadow-lg p-5 sm:p-6 border border-slate-100">
+                <h2 class="text-lg font-bold text-slate-900 mb-4 flex items-center">
+                    <i class="fa-solid fa-pen-to-square text-indigo-600 mr-2"></i> Latihan Soal
+                </h2>
+
+                <form id="form-quiz" class="space-y-6">
+                    <!-- Soal 1 -->
+                    <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                        <p class="font-medium text-slate-800 mb-3">1. How much is a plate of shumai in Canteen A?</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center space-x-3 cursor-pointer"><input type="radio" name="q1" value="A" class="text-indigo-600"><span class="text-sm">A. Rp6,000</span></label>
+                            <label class="flex items-center space-x-3 cursor-pointer"><input type="radio" name="q1" value="B" class="text-indigo-600"><span class="text-sm">B. Rp8,000</span></label>
+                            <label class="flex items-center space-x-3 cursor-pointer"><input type="radio" name="q1" value="C" class="text-indigo-600"><span class="text-sm">C. Rp5,000</span></label>
+                        </div>
+                    </div>
+
+                    <!-- Soal 2 -->
+                    <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                        <p class="font-medium text-slate-800 mb-3">2. Which canteen sells noodles for Rp3,000?</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center space-x-3 cursor-pointer"><input type="radio" name="q2" value="A" class="text-indigo-600"><span class="text-sm">A. Canteen A</span></label>
+                            <label class="flex items-center space-x-3 cursor-pointer"><input type="radio" name="q2" value="B" class="text-indigo-600"><span class="text-sm">B. Canteen B</span></label>
+                            <label class="flex items-center space-x-3 cursor-pointer"><input type="radio" name="q2" value="C" class="text-indigo-600"><span class="text-sm">C. Both canteens</span></label>
+                        </div>
+                    </div>
+
+                    <!-- Soal 3 -->
+                    <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                        <p class="font-medium text-slate-800 mb-3">3. How much is a bowl of bakso at Canteen B?</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center space-x-3 cursor-pointer"><input type="radio" name="q3" value="A" class="text-indigo-600"><span class="text-sm">A. Rp5,000</span></label>
+                            <label class="flex items-center space-x-3 cursor-pointer"><input type="radio" name="q3" value="B" class="text-indigo-600"><span class="text-sm">B. Rp8,000</span></label>
+                            <label class="flex items-center space-x-3 cursor-pointer"><input type="radio" name="q3" value="C" class="text-indigo-600"><span class="text-sm">C. Rp3,000</span></label>
+                        </div>
+                    </div>
+
+                    <button type="button" onclick="cekHasil()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 rounded-xl transition duration-200 shadow-md">
+                        Selesai & Cek Skor
+                    </button>
+                </form>
+
+                <!-- Bagian Hasil & Pembahasan (Hidden Awal) -->
+                <div id="section-hasil" class="hidden mt-6 pt-6 border-t border-slate-200 space-y-4">
+                    <div class="bg-indigo-50 p-4 rounded-xl text-center">
+                        <h3 class="text-sm font-semibold text-indigo-600 uppercase">Skor Anda</h3>
+                        <p id="skor-akhir" class="text-4xl font-black text-indigo-900 mt-1">0</p>
+                    </div>
+
+                    <div class="space-y-3">
+                        <h4 class="font-bold text-slate-800">Pembahasan Soal:</h4>
+                        <div id="pembahasan-1" class="p-3 rounded-lg text-sm"></div>
+                        <div id="pembahasan-2" class="p-3 rounded-lg text-sm"></div>
+                        <div id="pembahasan-3" class="p-3 rounded-lg text-sm"></div>
+                    </div>
+
+                    <button onclick="kirimKeGuru(event)" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl transition duration-200 shadow-md flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        <span>Kirim Nilai ke Akun Guru</span>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Script Interaktif & Koneksi Spreadsheet -->
+    <script>
+        let dataSiswa = {
+            nama: "",
+            absen: "",
+            mapel: "Bahasa Inggris",
+            tugas: "How Much Is It"
+        };
+
+        function mulaiBelajar(event) {
+            event.preventDefault();
+            dataSiswa.nama = document.getElementById('nama-siswa').value;
+            dataSiswa.absen = document.getElementById('no-absen').value;
+
+            document.getElementById('display-nama').innerText = dataSiswa.nama;
+            document.getElementById('display-absen').innerText = 'Absen: ' + dataSiswa.absen;
+
+            document.getElementById('section-login').classList.add('hidden');
+            document.getElementById('section-belajar').classList.remove('hidden');
+            window.scrollTo(0, 0);
+        }
+
+        function cekHasil() {
+            const kunci = { q1: 'B', q2: 'B', q3: 'A' };
+            let skor = 0;
+
+            const jawab1 = document.querySelector('input[name="q1"]:checked');
+            const jawab2 = document.querySelector('input[name="q2"]:checked');
+            const jawab3 = document.querySelector('input[name="q3"]:checked');
+
+            if (!jawab1 || !jawab2 || !jawab3) {
+                alert('Harap jawab semua soal terlebih dahulu!');
+                return;
+            }
+
+            // Evaluasi No 1
+            let p1 = document.getElementById('pembahasan-1');
+            if (jawab1.value === kunci.q1) {
+                skor += 33.3;
+                p1.className = "p-3 rounded-lg text-sm bg-emerald-50 text-emerald-800 border border-emerald-200";
+                p1.innerHTML = "<b>Soal 1: Benar.</b> Shumai di Canteen A harganya adalah Rp8,000.";
+            } else {
+                p1.className = "p-3 rounded-lg text-sm bg-rose-50 text-rose-800 border border-rose-200";
+                p1.innerHTML = "<b>Soal 1: Salah.</b> Jawaban yang benar adalah B (Rp8,000) sesuai tabel Canteen A.";
+            }
+
+            // Evaluasi No 2
+            let p2 = document.getElementById('pembahasan-2');
+            if (jawab2.value === kunci.q2) {
+                skor += 33.3;
+                p2.className = "p-3 rounded-lg text-sm bg-emerald-50 text-emerald-800 border border-emerald-200";
+                p2.innerHTML = "<b>Soal 2: Benar.</b> Noodles seharga Rp3,000 dijual di Canteen B.";
+            } else {
+                p2.className = "p-3 rounded-lg text-sm bg-rose-50 text-rose-800 border border-rose-200";
+                p2.innerHTML = "<b>Soal 2: Salah.</b> Jawaban yang benar adalah B (Canteen B).";
+            }
+
+            // Evaluasi No 3
+            let p3 = document.getElementById('pembahasan-3');
+            if (jawab3.value === kunci.q3) {
+                skor += 33.4;
+                p3.className = "p-3 rounded-lg text-sm bg-emerald-50 text-emerald-800 border border-emerald-200";
+                p3.innerHTML = "<b>Soal 3: Benar.</b> Harga bakso di Canteen B adalah Rp5,000.";
+            } else {
+                p3.className = "p-3 rounded-lg text-sm bg-rose-50 text-rose-800 border border-rose-200";
+                p3.innerHTML = "<b>Soal 3: Salah.</b> Jawaban yang benar adalah A (Rp5,000) sesuai tabel Canteen B.";
+            }
+
+            let nilaiFinal = Math.round(skor);
+            document.getElementById('skor-akhir').innerText = nilaiFinal;
+            document.getElementById('section-hasil').classList.remove('hidden');
+            
+            document.getElementById('section-hasil').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function kirimKeGuru(event) {
+            const skorNilai = document.getElementById('skor-akhir').innerText;
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbzXtzOj3YUSYjoG_SZI8zSghzk8V1xOiJHPyH0cc64i_UJJsj7DYJE6H-39O9mvxEYwNw/exec';
+
+            const formData = {
+                nama: dataSiswa.nama,
+                absen: dataSiswa.absen,
+                mapel: dataSiswa.mapel,
+                tugas: dataSiswa.tugas,
+                skor: skorNilai
+            };
+
+            const tombolKirim = event.currentTarget;
+            tombolKirim.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> <span>Mengirim Nilai...</span>';
+            tombolKirim.disabled = true;
+
+            fetch(scriptURL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => {
+                alert(`Berhasil!\n\nNama: ${dataSiswa.nama}\nNo. Absen: ${dataSiswa.absen}\nTugas: ${dataSiswa.tugas}\nSkor: ${skorNilai}\n\nNilai Anda telah otomatis tersimpan di Google Spreadsheet Guru!`);
+                tombolKirim.innerHTML = '<i class="fa-solid fa-check"></i> <span>Nilai Terkirim ✅</span>';
+                tombolKirim.classList.remove('bg-blue-600', 'hover:bg-blue-700');
+                tombolKirim.classList.add('bg-slate-400', 'cursor-not-allowed');
+            })
+            .catch(error => {
+                console.error('Error!', error);
+                alert('Gagal mengirim nilai. Periksa koneksi internet Anda.');
+                tombolKirim.innerHTML = '<i class="fa-solid fa-paper-plane"></i> <span>Kirim Nilai ke Akun Guru</span>';
+                tombolKirim.disabled = false;
+            });
+        }
+    </script>
+</body>
+</html>
