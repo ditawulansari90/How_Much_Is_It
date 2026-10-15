@@ -12,26 +12,45 @@
 
     <div class="max-w-3xl mx-auto min-h-screen p-4 sm:p-6 flex flex-col justify-center">
 
-        <!-- ================= BAGIAN 1: MENU AWAL (LOGIN SISWA) ================= -->
+        <!-- ================= BAGIAN 1: MENU AWAL (LOGIN SISWA DENGAN DROPDOWN) ================= -->
         <div id="section-login" class="bg-white rounded-2xl shadow-xl p-6 sm:p-8 border border-slate-100">
             <div class="text-center mb-6">
                 <span class="bg-indigo-100 text-indigo-700 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">E-Learning SD</span>
                 <h1 class="text-2xl sm:text-3xl font-bold text-slate-900 mt-2">English Interactive Learning</h1>
-                <p class="text-slate-500 text-sm mt-1">Silakan masukkan identitas Anda sebelum memulai pembelajaran.</p>
+                <p class="text-slate-500 text-sm mt-1">Silakan pilih nama Anda dari daftar sebelum memulai pembelajaran.</p>
             </div>
 
             <form id="form-login" onsubmit="mulaiBelajar(event)" class="space-y-4">
                 <div>
-                    <label class="block text-sm font-medium text-slate-700 mb-1"><i class="fa-solid fa-user text-indigo-500 mr-2"></i>Nama Siswa</label>
-                    <input type="text" id="nama-siswa" required placeholder="Contoh: Budi Santoso" class="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                    <label class="block text-sm font-medium text-slate-700 mb-1"><i class="fa-solid fa-user text-indigo-500 mr-2"></i>Pilih Nama Siswa</label>
+                    <select id="pilih-siswa" required onchange="updateAbsen()" class="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:outline-none bg-white">
+                        <option value="" disabled selected>-- Pilih Nama Anda --</option>
+                        <option value="Ahmad Bibi Prianto" data-absen="3159255731">Ahmad Bibi Prianto</option>
+                        <option value="Ahmad Ragil Setiawan" data-absen="3165165321">Ahmad Ragil Setiawan</option>
+                        <option value="Ahmad Aidillah" data-absen="3167865986">Ahmad Aidillah</option>
+                        <option value="An Nisa Alimah" data-absen="316748314">An Nisa Alimah</option>
+                        <option value="Azzahra Radya Utami" data-absen="3160951909">Azzahra Radya Utami</option>
+                        <option value="Fatkhul Mahdi Mubarok" data-absen="3156315316">Fatkhul Mahdi Mubarok</option>
+                        <option value="Gibran Albiyananda Putra" data-absen="3157295581">Gibran Albiyananda Putra</option>
+                        <option value="Muhammad Dandiansyah" data-absen="3169059179">Muhammad Dandiansyah</option>
+                        <option value="Muhammad Irawan" data-absen="3167661010">Muhammad Irawan</option>
+                        <option value="Muhammad Rava Azka Putra" data-absen="3164563065">Muhammad Rava Azka Putra</option>
+                        <option value="Munawarah Annisa Rahma" data-absen="3142981567">Munawarah Annisa Rahma</option>
+                        <option value="Nafisa Nur Adila Sari" data-absen="3150199714">Nafisa Nur Adila Sari</option>
+                        <option value="Naila Lailatul Zahwa" data-absen="3158560988">Naila Lailatul Zahwa</option>
+                        <option value="Rangga Syura" data-absen="3164859442">Rangga Syura</option>
+                        <option value="Silva Ananta Nur Afifah" data-absen="3159163528">Silva Ananta Nur Afifah</option>
+                        <option value="Widya Erlin Sa'diyah" data-absen="3151799963">Widya Erlin Sa'diyah</option>
+                        <option value="Yusep Maumali" data-absen="315...">Yusep Maumali</option>
+                    </select>
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-slate-700 mb-1"><i class="fa-solid fa-id-card text-indigo-500 mr-2"></i>No. Absen</label>
-                    <input type="number" id="no-absen" required placeholder="Contoh: 12" class="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                    <input type="text" id="no-absen" readonly placeholder="Otomatis terisi..." class="w-full px-4 py-2.5 rounded-lg border border-slate-200 bg-slate-100 text-slate-600 cursor-not-allowed">
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-slate-700 mb-1"><i class="fa-solid fa-book text-indigo-500 mr-2"></i>Mata Pelajaran</label>
-                    <input type="text" id="mapel" value="Bahasa Inggris" readonly class="w-full px-4 py-2.5 rounded-lg border border-slate-200 bg-slate-100 text-slate-600 cursor-not-allowed">
+                    <input type="text" id="mapel" value="B. Inggris" readonly class="w-full px-4 py-2.5 rounded-lg border border-slate-200 bg-slate-100 text-slate-600 cursor-not-allowed">
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-slate-700 mb-1"><i class="fa-solid fa-file-lines text-indigo-500 mr-2"></i>Nama Tugas</label>
@@ -172,14 +191,27 @@
         let dataSiswa = {
             nama: "",
             absen: "",
-            mapel: "Bahasa Inggris",
+            mapel: "B. Inggris",
             tugas: "How Much Is It"
         };
 
+        function updateAbsen() {
+            const selectSiswa = document.getElementById('pilih-siswa');
+            const selectedOption = selectSiswa.options[selectSiswa.selectedIndex];
+            const absen = selectedOption.getAttribute('data-absen');
+            document.getElementById('no-absen').value = absen || "";
+        }
+
         function mulaiBelajar(event) {
             event.preventDefault();
-            dataSiswa.nama = document.getElementById('nama-siswa').value;
+            const selectSiswa = document.getElementById('pilih-siswa');
+            dataSiswa.nama = selectSiswa.value;
             dataSiswa.absen = document.getElementById('no-absen').value;
+
+            if (!dataSiswa.nama) {
+                alert('Silakan pilih nama siswa terlebih dahulu!');
+                return;
+            }
 
             document.getElementById('display-nama').innerText = dataSiswa.nama;
             document.getElementById('display-absen').innerText = 'Absen: ' + dataSiswa.absen;
@@ -256,6 +288,7 @@
 
             const tombolKirim = event.currentTarget;
             tombolKirim.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> <span>Mengirim Nilai...</span>';
+            tombolKisi = tombolKirim;
             tombolKirim.disabled = true;
 
             fetch(scriptURL, {
